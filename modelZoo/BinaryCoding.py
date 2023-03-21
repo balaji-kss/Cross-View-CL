@@ -294,7 +294,7 @@ class Dyan_Tenc_multi(nn.Module):
     def forward(self, x, bi_thresh, nclips):
         
         T = x.shape[1]
-
+        # print('forward ', x.shape)
         # sparseCode, Dict, R = self.sparseCoding.forward2(x, T) # w.o. RH
         sparseCode, Dict, Reconstruction  = self.sparseCoding(x, T) # w.RH
 
@@ -348,15 +348,16 @@ class Fullclassification(nn.Module):
             # self.sparseCoding = MaskDyanEncoder(self.Drr, self.Dtheta, lam=fistaLam, gpu_id=self.gpu_id)
         else:
             self.sparseCoding = DyanEncoder(self.Drr, self.Dtheta, lam=fistaLam, gpu_id=self.gpu_id)
+
         self.Classifier = classificationGlobal(num_class=self.num_class, Npole=self.Npole, dataType=self.dataType)
 
-    def forward(self, x, bi_thresh, nclip):
+    def forward(self, x, bi_thresh, nclips):
         # sparseCode, Dict, R = self.sparseCoding.forward2(x, T) # w.o. RH
         # bz, dims = x.shape[0], x.shape[-1]
         T = x.shape[1]
 
         if self.useGroup:
-            sparseCode,Dict, _ = self.sparseCoding(x, T)
+            sparseCode, Dict, _ = self.sparseCoding(x, T)
             # print('group lasso reg weights, l1, l2:', self.fistaLam, self.group_reg)
         else:
             sparseCode, Dict, _ = self.sparseCoding(x, T) # w.RH
@@ -482,9 +483,9 @@ class contrastiveNet(nn.Module):
         # self.mlpHead = MLP(self.dim_in)
         # self.sparseCoding = DyanEncoder(self.Drr, self.Dtheta, self.fistaLam, self.gpu_id)
 
-        # self.backbone = Dyan_Tenc_multi(self.dim_embed, self.Npole, self.Drr, self.Dtheta, self.dim_data, self.dataType, self.Inference, self.gpu_id, self.fistaLam)
+        self.backbone = Dyan_Tenc_multi(self.dim_embed, self.Npole, self.Drr, self.Dtheta, self.dim_data, self.dataType, self.Inference, self.gpu_id, self.fistaLam)
 
-        self.backbone = Fullclassification(self.dim_embed, self.Npole, self.Drr, self.Dtheta, self.dim_data, self.dataType, self.Inference, self.gpu_id, self.fistaLam, self.useGroup, self.group_reg)
+        # self.backbone = Fullclassification(self.dim_embed, self.Npole, self.Drr, self.Dtheta, self.dim_data, self.dataType, self.Inference, self.gpu_id, self.fistaLam, self.useGroup, self.group_reg)
 
         dim_mlp = self.backbone.Classifier.cls.in_features
         if self.fineTune == False:
@@ -496,11 +497,13 @@ class contrastiveNet(nn.Module):
 
     def forward(self, x, bi_thresh, nclips):
         'x: affine skeleton'
-        bz = x.shape[0]
+        
         if len(x.shape) == 3:
             x = x.unsqueeze(0)
-        x = x.reshape(x.shape[0]* x.shape[1], x.shape[2], x.shape[3])
-        nClip = int(x.shape[0]/bz)
+        # x = x.reshape(x.shape[0]* x.shape[1], x.shape[2], x.shape[3])
+        nClip = nclips
+        bz = x.shape[0]//nClip
+
         if self.fineTune == False:
             if bz < 2:
                 x = x.repeat(2,1,1,1)
@@ -514,10 +517,15 @@ class contrastiveNet(nn.Module):
             # z1 = F.normalize(self.mlpHead(lastFeat1), dim=1)
             #
             # z2 = F.normalize(self.mlpHead(lastFeat2),dim=1)
+            # print('x1 shape ', x1.shape)
+            # print('x2 shape ', x2.shape)
+            # print('nclips ', nclips)
 
-            _, embedding1,_,_ = self.backbone(x1, bi_thresh)
-            _, embedding2,_,_ = self.backbone(x2, bi_thresh)
+            _, embedding1,_,_ = self.backbone(x1, bi_thresh, nclips)
+            _, embedding2,_,_ = self.backbone(x2, bi_thresh, nclips)
 
+            # print('embedding1 shape ', embedding1.shape)
+            # print('embedding2 shape ', embedding2.shape)
 
             embed1 = torch.mean(embedding1.reshape(bz, nClip, embedding1.shape[-1]),1)
             embed2 = torch.mean(embedding2.reshape(bz, nClip, embedding2.shape[-1]),1)

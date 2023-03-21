@@ -108,7 +108,7 @@ for p in net.backbone.Classifier.cls[-1].parameters():
 
 # optimizer = torch.optim.SGD(
 #         [{'params': filter(lambda x: x.requires_grad, net.backbone.sparseCoding.parameters()), 'lr': lr_2},
-#         {'params': filter(lambda x: x.requires_grad, net.backbone.transformer_encoder.parameters()), 'lr': lr_2},
+#         {'params': filter(lambda x: x.requires_grad, net.backbone.transformer_encoder.parameters()), 'lr': lr_2}  ,
 #          {'params': filter(lambda x: x.requires_grad, net.backbone.Classifier.parameters()), 'lr': lr}], weight_decay=1e-3,
 #         momentum=0.9)
 

@@ -1,0 +1,210 @@
+mode: dy+bi+cl model path: /home/balaji/Cross-View/Cross-View-CL/models/crossView_NUCLA/Multi/dy+bi+cl/T36_contrastive_dir/ mask: score
+experiment setup: True True
+start training epoch: 1
+epoch: 1 contrastive loss: 1.5958207981259216
+start training epoch: 2
+epoch: 2 contrastive loss: 0.7112395049018019
+start training epoch: 3
+epoch: 3 contrastive loss: 0.5986298622161734
+start training epoch: 4
+epoch: 4 contrastive loss: 0.49233375273498836
+start training epoch: 5
+epoch: 5 contrastive loss: 0.4368690707045151
+start training epoch: 6
+epoch: 6 contrastive loss: 0.437848266462485
+start training epoch: 7
+epoch: 7 contrastive loss: 0.3864389766957246
+start training epoch: 8
+epoch: 8 contrastive loss: 0.37275638705594283
+start training epoch: 9
+epoch: 9 contrastive loss: 0.36270229928925923
+start training epoch: 10
+epoch: 10 contrastive loss: 0.3483012524122993
+start training epoch: 11
+epoch: 11 contrastive loss: 0.3337979735413968
+start training epoch: 12
+epoch: 12 contrastive loss: 0.3029456701239242
+start training epoch: 13
+epoch: 13 contrastive loss: 0.29058271581307055
+start training epoch: 14
+epoch: 14 contrastive loss: 0.27139686786149647
+start training epoch: 15
+epoch: 15 contrastive loss: 0.2753989523568866
+start training epoch: 16
+epoch: 16 contrastive loss: 0.2639919892702179
+start training epoch: 17
+epoch: 17 contrastive loss: 0.2476714426993995
+start training epoch: 18
+epoch: 18 contrastive loss: 0.23242350378092014
+start training epoch: 19
+epoch: 19 contrastive loss: 0.24717828018554286
+start training epoch: 20
+epoch: 20 contrastive loss: 0.2117453228600104
+start training epoch: 21
+epoch: 21 contrastive loss: 0.21575115267187356
+start training epoch: 22
+epoch: 22 contrastive loss: 0.18446961138351803
+start training epoch: 23
+epoch: 23 contrastive loss: 0.20929690871442505
+start training epoch: 24
+epoch: 24 contrastive loss: 0.19624623590258553
+start training epoch: 25
+epoch: 25 contrastive loss: 0.19625033241669265
+start training epoch: 26
+epoch: 26 contrastive loss: 0.17823806663920336
+start training epoch: 27
+epoch: 27 contrastive loss: 0.18107271218060644
+start training epoch: 28
+epoch: 28 contrastive loss: 0.1668270276996362
+start training epoch: 29
+epoch: 29 contrastive loss: 0.1509127095067764
+start training epoch: 30
+epoch: 30 contrastive loss: 0.1657602770438911
+start training epoch: 31
+epoch: 31 contrastive loss: 0.13998723612418032
+start training epoch: 32
+epoch: 32 contrastive loss: 0.1418810139218455
+start training epoch: 33
+epoch: 33 contrastive loss: 0.15936048273179754
+start training epoch: 34
+epoch: 34 contrastive loss: 0.1360946281379381
+start training epoch: 35
+epoch: 35 contrastive loss: 0.1490509403231508
+start training epoch: 36
+epoch: 36 contrastive loss: 0.13161762721023942
+start training epoch: 37
+epoch: 37 contrastive loss: 0.15036329656620237
+start training epoch: 38
+epoch: 38 contrastive loss: 0.14339464204796754
+start training epoch: 39
+epoch: 39 contrastive loss: 0.13273674715241857
+start training epoch: 40
+epoch: 40 contrastive loss: 0.12178954443729975
+start training epoch: 41
+epoch: 41 contrastive loss: 0.11258075091595232
+start training epoch: 42
+epoch: 42 contrastive loss: 0.14077307378494308
+start training epoch: 43
+epoch: 43 contrastive loss: 0.12209233714874797
+start training epoch: 44
+epoch: 44 contrastive loss: 0.13851328278040312
+start training epoch: 45
+epoch: 45 contrastive loss: 0.12559834552378685
+start training epoch: 46
+epoch: 46 contrastive loss: 0.10029645784137149
+start training epoch: 47
+epoch: 47 contrastive loss: 0.09100264608129567
+start training epoch: 48
+epoch: 48 contrastive loss: 0.11802845272662428
+start training epoch: 49
+epoch: 49 contrastive loss: 0.10772607535233393
+start training epoch: 50
+epoch: 50 contrastive loss: 0.1105585271512003
+start training epoch: 51
+epoch: 51 contrastive loss: 0.09576098741826547
+start training epoch: 52
+epoch: 52 contrastive loss: 0.08779078788961758
+start training epoch: 53
+epoch: 53 contrastive loss: 0.07887516817130495
+start training epoch: 54
+epoch: 54 contrastive loss: 0.08167471974561968
+start training epoch: 55
+epoch: 55 contrastive loss: 0.07873273465517616
+start training epoch: 56
+epoch: 56 contrastive loss: 0.06667103661080438
+start training epoch: 57
+epoch: 57 contrastive loss: 0.0833549863498489
+start training epoch: 58
+epoch: 58 contrastive loss: 0.07256094926774762
+start training epoch: 59
+epoch: 59 contrastive loss: 0.06612708967615047
+start training epoch: 60
+epoch: 60 contrastive loss: 0.07629194572946289
+start training epoch: 61
+epoch: 61 contrastive loss: 0.053077069018264394
+start training epoch: 62
+epoch: 62 contrastive loss: 0.07184820567339308
+start training epoch: 63
+epoch: 63 contrastive loss: 0.056333072391035056
+start training epoch: 64
+epoch: 64 contrastive loss: 0.06653845207702926
+start training epoch: 65
+epoch: 65 contrastive loss: 0.06967998342297506
+start training epoch: 66
+epoch: 66 contrastive loss: 0.07503390152420501
+start training epoch: 67
+epoch: 67 contrastive loss: 0.050853659352401784
+start training epoch: 68
+epoch: 68 contrastive loss: 0.06563111164586563
+start training epoch: 69
+epoch: 69 contrastive loss: 0.06819279619359055
+start training epoch: 70
+epoch: 70 contrastive loss: 0.055470075609770776
+start training epoch: 71
+epoch: 71 contrastive loss: 0.06967897193013307
+start training epoch: 72
+epoch: 72 contrastive loss: 0.06613539673830839
+start training epoch: 73
+epoch: 73 contrastive loss: 0.0707780533482768
+start training epoch: 74
+epoch: 74 contrastive loss: 0.055366133464678356
+start training epoch: 75
+epoch: 75 contrastive loss: 0.05988195026076545
+start training epoch: 76
+epoch: 76 contrastive loss: 0.057136507304590745
+start training epoch: 77
+epoch: 77 contrastive loss: 0.04880937357534718
+start training epoch: 78
+epoch: 78 contrastive loss: 0.06368904201674512
+start training epoch: 79
+epoch: 79 contrastive loss: 0.06437841261492805
+start training epoch: 80
+epoch: 80 contrastive loss: 0.06404592899589083
+start training epoch: 81
+epoch: 81 contrastive loss: 0.06141002592944549
+start training epoch: 82
+epoch: 82 contrastive loss: 0.07115556866708941
+start training epoch: 83
+epoch: 83 contrastive loss: 0.059267098902423376
+start training epoch: 84
+epoch: 84 contrastive loss: 0.05408462672779683
+start training epoch: 85
+epoch: 85 contrastive loss: 0.06547346386148858
+start training epoch: 86
+epoch: 86 contrastive loss: 0.051295127450572964
+start training epoch: 87
+epoch: 87 contrastive loss: 0.04644796228819235
+start training epoch: 88
+epoch: 88 contrastive loss: 0.05532154078069189
+start training epoch: 89
+epoch: 89 contrastive loss: 0.05320626762958116
+start training epoch: 90
+epoch: 90 contrastive loss: 0.054990329017620715
+start training epoch: 91
+epoch: 91 contrastive loss: 0.06094094430211722
+start training epoch: 92
+epoch: 92 contrastive loss: 0.05459220717996633
+start training epoch: 93
+epoch: 93 contrastive loss: 0.05118680460796253
+start training epoch: 94
+epoch: 94 contrastive loss: 0.04751718835893781
+start training epoch: 95
+epoch: 95 contrastive loss: 0.06331228191077518
+start training epoch: 96
+epoch: 96 contrastive loss: 0.048468463080929475
+start training epoch: 97
+epoch: 97 contrastive loss: 0.056694996059534375
+start training epoch: 98
+epoch: 98 contrastive loss: 0.054080982914927196
+start training epoch: 99
+epoch: 99 contrastive loss: 0.054252665567693446
+start training epoch: 100
+epoch: 100 contrastive loss: 0.04505929056436335
+Traceback (most recent call last):
+  File "trainCrossView_contrastitive.py", line 158, in <module>
+    torch.cuda.empty_cache()
+  File "/home/yuexi/pyenv_1.6/lib/python3.6/site-packages/torch/cuda/memory.py", line 114, in empty_cache
+    torch._C._cuda_emptyCache()
+RuntimeError: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.

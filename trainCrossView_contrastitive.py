@@ -10,14 +10,14 @@ random.seed(0)
 np.random.seed(0)
 torch.manual_seed(0)
 
-gpu_id = 4
+gpu_id = 0
 map_loc = "cuda:"+str(gpu_id)
 
 # T = 36
 '------configuration:-------------------------------------------'
 dataset = 'NUCLA'
 
-N = 80*2
+N = 80 * 2
 Epoch = 100
 # num_class = 10
 dataType = '2D'
@@ -33,7 +33,7 @@ if sampling == 'Single':
     bz = 64
 else:
     num_workers = 8
-    bz = 20
+    bz = 8
 
 T = 36 # input clip length
 mode = 'dy+bi+cl'
@@ -43,13 +43,14 @@ fusion = False
 num_class = 10
  # v1,v2 train, v3 test;
 lr = 1e-3 # classifier
+lr_1 = 1e-4 # transformer
 lr_2 = 1e-4  # sparse codeing
 gumbel_thresh = 0.51
 'change to your own model path'
-modelRoot = '/home/yuexi/Documents/ModelFile/crossView_NUCLA/'
+modelRoot = '/home/balaji/Cross-View/Cross-View-CL/models/crossView_NUCLA/'
 
 
-saveModel = modelRoot + sampling + '/' + mode + '/T36_contrastive_all/'
+saveModel = modelRoot + sampling + '/' + mode + '/T36_contrastive/'
 if not os.path.exists(saveModel):
     os.makedirs(saveModel)
 print('mode:',mode, 'model path:', saveModel, 'mask:', maskType)
@@ -69,10 +70,10 @@ trainSet = NUCLA_CrossView(root_list=path_list, dataType=dataType, sampling=samp
                                 setup=setup)
 # #
 
-trainloader = DataLoader(trainSet, batch_size=bz, shuffle=True, num_workers=num_workers)
+trainloader = DataLoader(trainSet, batch_size=bz, shuffle=True, num_workers=num_workers, drop_last=True)
 
 testSet = NUCLA_CrossView(root_list=path_list, dataType=dataType, sampling=sampling, phase='test', cam='2,1', T=T, maskType= maskType, setup=setup)
-testloader = DataLoader(testSet, batch_size=bz, shuffle=True, num_workers=num_workers)
+testloader = DataLoader(testSet, batch_size=bz, shuffle=True, num_workers=num_workers, drop_last=True)
 
 
 net = contrastiveNet(dim_embed=128, Npole=N+1, Drr=Drr, Dtheta=Dtheta, Inference=True, gpu_id=gpu_id, dim=2, dataType='2D', fistaLam=fistaLam, fineTune=False).cuda(gpu_id)
@@ -80,11 +81,16 @@ net.train()
 
 
 
+# optimizer = torch.optim.SGD(
+#         [{'params': filter(lambda x: x.requires_grad, net.backbone.sparseCoding.parameters()), 'lr': lr_2},
+#          {'params': filter(lambda x: x.requires_grad, net.backbone.Classifier.parameters()), 'lr': lr}], weight_decay=1e-3,
+#         momentum=0.9)
+
 optimizer = torch.optim.SGD(
         [{'params': filter(lambda x: x.requires_grad, net.backbone.sparseCoding.parameters()), 'lr': lr_2},
+        {'params': filter(lambda x: x.requires_grad, net.backbone.transformer_encoder.parameters()), 'lr': lr_1},
          {'params': filter(lambda x: x.requires_grad, net.backbone.Classifier.parameters()), 'lr': lr}], weight_decay=1e-3,
         momentum=0.9)
-
 
 scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=[50, 100, 150], gamma=0.1)
 Criterion = torch.nn.CrossEntropyLoss()
@@ -134,7 +140,8 @@ for epoch in range(1, Epoch+1):
             nClip = skeletons.shape[1]
 
         # info_nce_loss = net(input_skeletons, t)
-        logits, labels = net(input_skeletons, bi_thresh=gumbel_thresh)
+        # print('input_skeletons shape ', input_skeletons.shape)
+        logits, labels = net(input_skeletons, bi_thresh=gumbel_thresh, nclips=nClip)
         info_nce_loss = Criterion(logits, labels)
         info_nce_loss.backward()
         optimizer.step()
@@ -142,7 +149,7 @@ for epoch in range(1, Epoch+1):
     scheduler.step()
     print('epoch:', epoch, 'contrastive loss:', np.mean(np.asarray(lossVal)))
     # print('rr.grad:', net.backbone.sparseCoding.rr.grad, 'cls grad:', net.backbone.Classifier.cls[-1].weight.grad[0:10,0:10])
-    if epoch % 20 == 0:
+    if epoch % 5 == 0:
         torch.save({'epoch': epoch + 1, 'state_dict': net.state_dict(),
                     'optimizer': optimizer.state_dict()}, saveModel + str(epoch) + '.pth')
 
