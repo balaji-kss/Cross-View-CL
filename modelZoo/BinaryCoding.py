@@ -483,9 +483,9 @@ class contrastiveNet(nn.Module):
         # self.mlpHead = MLP(self.dim_in)
         # self.sparseCoding = DyanEncoder(self.Drr, self.Dtheta, self.fistaLam, self.gpu_id)
 
-        self.backbone = Dyan_Tenc_multi(self.dim_embed, self.Npole, self.Drr, self.Dtheta, self.dim_data, self.dataType, self.Inference, self.gpu_id, self.fistaLam)
+        # self.backbone = Dyan_Tenc_multi(self.dim_embed, self.Npole, self.Drr, self.Dtheta, self.dim_data, self.dataType, self.Inference, self.gpu_id, self.fistaLam)
 
-        # self.backbone = Fullclassification(self.dim_embed, self.Npole, self.Drr, self.Dtheta, self.dim_data, self.dataType, self.Inference, self.gpu_id, self.fistaLam, self.useGroup, self.group_reg)
+        self.backbone = Fullclassification(self.dim_embed, self.Npole, self.Drr, self.Dtheta, self.dim_data, self.dataType, self.Inference, self.gpu_id, self.fistaLam, self.useGroup, self.group_reg)
 
         dim_mlp = self.backbone.Classifier.cls.in_features
         if self.fineTune == False:
@@ -550,7 +550,7 @@ class contrastiveNet(nn.Module):
 
             return logits, labels
         else:
-
+            x = x.reshape(x.shape[0]* x.shape[1], x.shape[2], x.shape[3])
             return self.backbone(x, bi_thresh, nclips)
 
 

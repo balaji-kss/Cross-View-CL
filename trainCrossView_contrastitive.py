@@ -18,7 +18,7 @@ map_loc = "cuda:"+str(gpu_id)
 dataset = 'NUCLA'
 
 N = 80 * 2
-Epoch = 100
+Epoch = 200
 # num_class = 10
 dataType = '2D'
 sampling = 'Multi' #sampling strategy

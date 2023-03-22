@@ -10,8 +10,8 @@ random.seed(0)
 np.random.seed(0)
 torch.manual_seed(0)
 
-gpu_id = 4
-map_loc = "cuda:"+str(gpu_id)
+gpu_id = 3
+map_loc = "cuda:" + str(gpu_id)
 
 # T = 36
 '------configuration:-------------------------------------------'
@@ -36,7 +36,7 @@ if sampling == 'Single':
     bz = 60
 else:
     num_workers = 4
-    bz = 12
+    bz = 8
 
 T = 36 # input clip length
 mode = 'dy+bi+cl'
@@ -58,7 +58,7 @@ print('Alpha, lam1, lam2 ', Alpha, lam1, lam2)
 'change to your own model path'
 modelRoot = './models/crossView_NUCLA/'
 
-saveModel = modelRoot + sampling + '/' + mode + '/T36_contrastive_sparse_fixed/'
+saveModel = modelRoot + sampling + '/' + mode + '/cl_finetune_exp2_reproduce/'
 if not os.path.exists(saveModel):
     os.makedirs(saveModel)
 print('mode:', mode, 'sampling: ', sampling, ' model path:', saveModel,  'gpu:', gpu_id)
@@ -88,7 +88,8 @@ net = contrastiveNet(dim_embed=128, Npole=N+1, Drr=Drr, Dtheta=Dtheta, Inference
 
 'load pre-trained contrastive model'
 #pre_train = modelRoot + sampling + '/' + mode + '/T36_contrastive_fineTune_all/' + '40.pth'        
-pre_train = './pretrained/' + dataset +'/' + setup + '/' +sampling + '/pretrainedRHdyan_CL.pth' 
+pre_train = './pretrained/' + dataset +'/' + setup + '/' +sampling + '/pretrainedRHdyan_CL.pth'
+# pre_train = '/home/balaji/Cross-View/Cross-View-CL/models/crossView_NUCLA/Multi/dy+bi+cl/T36_contrastive_dir/100.pth'
 state_dict = torch.load(pre_train, map_location=map_loc)
 
 net = load_fineTune_model(state_dict, net)
@@ -101,7 +102,7 @@ for p in net.backbone.sparseCoding.parameters():
 #     p.requires_grad = True
 
 for p in net.backbone.Classifier.parameters():
-    p.requires_grad = True
+    p.requires_grad = False
 
 for p in net.backbone.Classifier.cls[-1].parameters():
     p.requires_grad = True

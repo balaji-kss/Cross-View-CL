@@ -200,11 +200,3 @@ start training epoch: 99
 epoch: 99 contrastive loss: 0.054252665567693446
 start training epoch: 100
 epoch: 100 contrastive loss: 0.04505929056436335
-Traceback (most recent call last):
-  File "trainCrossView_contrastitive.py", line 158, in <module>
-    torch.cuda.empty_cache()
-  File "/home/yuexi/pyenv_1.6/lib/python3.6/site-packages/torch/cuda/memory.py", line 114, in empty_cache
-    torch._C._cuda_emptyCache()
-RuntimeError: CUDA error: out of memory
-CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
-For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
